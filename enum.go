@@ -48,12 +48,27 @@ func (e *Enum[T]) ShortName() string {
 }
 
 // AllValues returns all declared values of the enum type.
+// It includes the zero (_UNSPECIFIED) value.
 func (e *Enum[T]) AllValues() []T {
 	typ := e.inner.Type()
 	values := typ.Descriptor().Values()
 	ret := make([]T, 0, values.Len())
 	for i := range values.Len() {
 		ret = append(ret, typ.New(values.Get(i).Number()).(T))
+	}
+	return ret
+}
+
+// SpecifiedValues returns all specified values of the enum type.
+// It excludes the zero (_UNSPECIFIED) value.
+func (e *Enum[T]) SpecifiedValues() []T {
+	typ := e.inner.Type()
+	values := typ.Descriptor().Values()
+	ret := make([]T, 0, values.Len()-1)
+	for i := range values.Len() {
+		if values.Get(i).Number() != 0 {
+			ret = append(ret, typ.New(values.Get(i).Number()).(T))
+		}
 	}
 	return ret
 }
