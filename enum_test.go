@@ -58,77 +58,48 @@ func TestEnum_ShortName(t *testing.T) {
 			})
 		}
 	})
-	t.Run("TestEnumType2", func(t *testing.T) {
+
+	t.Run("with numbers", func(t *testing.T) {
 		cases := []struct {
-			enum dummyv1.TestEnumType2
+			enum int32
 			want string
 		}{
-			{
-				enum: dummyv1.TestEnumType2_TEST_ENUM_TYPE2_UNSPECIFIED,
-				want: "unspecified",
-			},
-			{
-				enum: dummyv1.TestEnumType2_TEST_ENUM_TYPE2_FOO,
-				want: "foo",
-			},
-			{
-				enum: dummyv1.TestEnumType2_TEST_ENUM_TYPE2_BAR,
-				want: "bar",
-			},
+			{enum: 0, want: "unspecified"},
+			{enum: 1, want: "foo"},
+			{enum: 2, want: "bar"},
 		}
-		for _, tt := range cases {
-			t.Run(tt.enum.String(), func(t *testing.T) {
-				assert.Equal(t, tt.want, WrapEnum(tt.enum).ShortName())
-			})
-		}
-	})
-	t.Run("TestEnum3Type", func(t *testing.T) {
-		cases := []struct {
-			enum dummyv1.TestEnum3Type
-			want string
-		}{
-			{
-				enum: dummyv1.TestEnum3Type_TEST_ENUM3_TYPE_UNSPECIFIED,
-				want: "unspecified",
-			},
-			{
-				enum: dummyv1.TestEnum3Type_TEST_ENUM3_TYPE_FOO,
-				want: "foo",
-			},
-			{
-				enum: dummyv1.TestEnum3Type_TEST_ENUM3_TYPE_BAR,
-				want: "bar",
-			},
-		}
-		for _, tt := range cases {
-			t.Run(tt.enum.String(), func(t *testing.T) {
-				assert.Equal(t, tt.want, WrapEnum(tt.enum).ShortName())
-			})
-		}
-	})
-	t.Run("TestEnum4thType", func(t *testing.T) {
-		cases := []struct {
-			enum dummyv1.TestEnum4ThType
-			want string
-		}{
-			{
-				enum: dummyv1.TestEnum4ThType_TEST_ENUM4TH_TYPE_UNSPECIFIED,
-				want: "unspecified",
-			},
-			{
-				enum: dummyv1.TestEnum4ThType_TEST_ENUM4TH_TYPE_FOO,
-				want: "foo",
-			},
-			{
-				enum: dummyv1.TestEnum4ThType_TEST_ENUM4TH_TYPE_BAR,
-				want: "bar",
-			},
-		}
-		for _, tt := range cases {
-			t.Run(tt.enum.String(), func(t *testing.T) {
-				assert.Equal(t, tt.want, WrapEnum(tt.enum).ShortName())
-			})
-		}
+		t.Run("TestEnumType2", func(t *testing.T) {
+			for _, tt := range cases {
+				enum := dummyv1.TestEnumType2(tt.enum)
+				t.Run(enum.String(), func(t *testing.T) {
+					assert.Equal(t, tt.want, WrapEnum(enum).ShortName())
+				})
+			}
+		})
+		t.Run("TestEnum3Type", func(t *testing.T) {
+			for _, tt := range cases {
+				enum := dummyv1.TestEnum3Type(tt.enum)
+				t.Run(enum.String(), func(t *testing.T) {
+					assert.Equal(t, tt.want, WrapEnum(enum).ShortName())
+				})
+			}
+		})
+		t.Run("TestEnum4ThType", func(t *testing.T) {
+			for _, tt := range cases {
+				enum := dummyv1.TestEnum4ThType(tt.enum)
+				t.Run(enum.String(), func(t *testing.T) {
+					assert.Equal(t, tt.want, WrapEnum(enum).ShortName())
+				})
+			}
+		})
+		t.Run("TestEnum05Type", func(t *testing.T) {
+			for _, tt := range cases {
+				enum := dummyv1.TestEnum05ThType(tt.enum)
+				t.Run(enum.String(), func(t *testing.T) {
+					assert.Equal(t, tt.want, WrapEnum(enum).ShortName())
+				})
+			}
+		})
 	})
 }
 

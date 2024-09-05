@@ -33,3 +33,10 @@ enum TestEnum4thType {
   TEST_ENUM4TH_TYPE_FOO = 1;
   TEST_ENUM4TH_TYPE_BAR = 2;
 }
+
+// test case: enum type with multiple numbers
+enum TestEnum05thType {
+  TEST_ENUM05TH_TYPE_UNSPECIFIED = 0;
+  TEST_ENUM05TH_TYPE_FOO = 1;
+  TEST_ENUM05TH_TYPE_BAR = 2;
+}

@@ -231,6 +231,56 @@ func (TestEnum4ThType) EnumDescriptor() ([]byte, []int) {
 	return file_dummy_v1_dummy_proto_rawDescGZIP(), []int{3}
 }
 
+// test case: enum type with multiple numbers
+type TestEnum05ThType int32
+
+const (
+	TestEnum05ThType_TEST_ENUM05TH_TYPE_UNSPECIFIED TestEnum05ThType = 0
+	TestEnum05ThType_TEST_ENUM05TH_TYPE_FOO         TestEnum05ThType = 1
+	TestEnum05ThType_TEST_ENUM05TH_TYPE_BAR         TestEnum05ThType = 2
+)
+
+// Enum value maps for TestEnum05ThType.
+var (
+	TestEnum05ThType_name = map[int32]string{
+		0: "TEST_ENUM05TH_TYPE_UNSPECIFIED",
+		1: "TEST_ENUM05TH_TYPE_FOO",
+		2: "TEST_ENUM05TH_TYPE_BAR",
+	}
+	TestEnum05ThType_value = map[string]int32{
+		"TEST_ENUM05TH_TYPE_UNSPECIFIED": 0,
+		"TEST_ENUM05TH_TYPE_FOO":         1,
+		"TEST_ENUM05TH_TYPE_BAR":         2,
+	}
+)
+
+func (x TestEnum05ThType) Enum() *TestEnum05ThType {
+	p := new(TestEnum05ThType)
+	*p = x
+	return p
+}
+
+func (x TestEnum05ThType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (TestEnum05ThType) Descriptor() protoreflect.EnumDescriptor {
+	return file_dummy_v1_dummy_proto_enumTypes[4].Descriptor()
+}
+
+func (TestEnum05ThType) Type() protoreflect.EnumType {
+	return &file_dummy_v1_dummy_proto_enumTypes[4]
+}
+
+func (x TestEnum05ThType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use TestEnum05ThType.Descriptor instead.
+func (TestEnum05ThType) EnumDescriptor() ([]byte, []int) {
+	return file_dummy_v1_dummy_proto_rawDescGZIP(), []int{4}
+}
+
 var File_dummy_v1_dummy_proto protoreflect.FileDescriptor
 
 var file_dummy_v1_dummy_proto_rawDesc = []byte{
@@ -268,6 +318,13 @@ var file_dummy_v1_dummy_proto_rawDesc = []byte{
 	0x54, 0x45, 0x53, 0x54, 0x5f, 0x45, 0x4e, 0x55, 0x4d, 0x34, 0x54, 0x48, 0x5f, 0x54, 0x59, 0x50,
 	0x45, 0x5f, 0x46, 0x4f, 0x4f, 0x10, 0x01, 0x12, 0x19, 0x0a, 0x15, 0x54, 0x45, 0x53, 0x54, 0x5f,
 	0x45, 0x4e, 0x55, 0x4d, 0x34, 0x54, 0x48, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x42, 0x41, 0x52,
+	0x10, 0x02, 0x2a, 0x6e, 0x0a, 0x10, 0x54, 0x65, 0x73, 0x74, 0x45, 0x6e, 0x75, 0x6d, 0x30, 0x35,
+	0x74, 0x68, 0x54, 0x79, 0x70, 0x65, 0x12, 0x22, 0x0a, 0x1e, 0x54, 0x45, 0x53, 0x54, 0x5f, 0x45,
+	0x4e, 0x55, 0x4d, 0x30, 0x35, 0x54, 0x48, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x55, 0x4e, 0x53,
+	0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x1a, 0x0a, 0x16, 0x54, 0x45,
+	0x53, 0x54, 0x5f, 0x45, 0x4e, 0x55, 0x4d, 0x30, 0x35, 0x54, 0x48, 0x5f, 0x54, 0x59, 0x50, 0x45,
+	0x5f, 0x46, 0x4f, 0x4f, 0x10, 0x01, 0x12, 0x1a, 0x0a, 0x16, 0x54, 0x45, 0x53, 0x54, 0x5f, 0x45,
+	0x4e, 0x55, 0x4d, 0x30, 0x35, 0x54, 0x48, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x42, 0x41, 0x52,
 	0x10, 0x02, 0x42, 0x98, 0x01, 0x0a, 0x0c, 0x63, 0x6f, 0x6d, 0x2e, 0x64, 0x75, 0x6d, 0x6d, 0x79,
 	0x2e, 0x76, 0x31, 0x42, 0x0a, 0x44, 0x75, 0x6d, 0x6d, 0x79, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50,
 	0x01, 0x5a, 0x3b, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x67, 0x6f,
@@ -293,12 +350,13 @@ func file_dummy_v1_dummy_proto_rawDescGZIP() []byte {
 	return file_dummy_v1_dummy_proto_rawDescData
 }
 
-var file_dummy_v1_dummy_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
+var file_dummy_v1_dummy_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
 var file_dummy_v1_dummy_proto_goTypes = []any{
-	(TestEnumType)(0),    // 0: dummy.v1.TestEnumType
-	(TestEnumType2)(0),   // 1: dummy.v1.TestEnumType2
-	(TestEnum3Type)(0),   // 2: dummy.v1.TestEnum3Type
-	(TestEnum4ThType)(0), // 3: dummy.v1.TestEnum4thType
+	(TestEnumType)(0),     // 0: dummy.v1.TestEnumType
+	(TestEnumType2)(0),    // 1: dummy.v1.TestEnumType2
+	(TestEnum3Type)(0),    // 2: dummy.v1.TestEnum3Type
+	(TestEnum4ThType)(0),  // 3: dummy.v1.TestEnum4thType
+	(TestEnum05ThType)(0), // 4: dummy.v1.TestEnum05thType
 }
 var file_dummy_v1_dummy_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -318,7 +376,7 @@ func file_dummy_v1_dummy_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_dummy_v1_dummy_proto_rawDesc,
-			NumEnums:      4,
+			NumEnums:      5,
 			NumMessages:   0,
 			NumExtensions: 0,
 			NumServices:   0,
