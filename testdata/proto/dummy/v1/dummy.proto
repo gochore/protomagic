@@ -13,9 +13,23 @@ enum TestEnumType {
   TEST_ENUM_TYPE_HELLO = 100; // test case: non-sequential enum value
 }
 
-// test case: enum type with number
-enum TestEnum2Type {
-  TEST_ENUM2_TYPE_UNSPECIFIED = 0;
-  TEST_ENUM2_TYPE_FOO = 1;
-  TEST_ENUM2_TYPE_BAR = 2;
+// test case: enum type with number at end
+enum TestEnumType2 {
+  TEST_ENUM_TYPE2_UNSPECIFIED = 0;
+  TEST_ENUM_TYPE2_FOO = 1;
+  TEST_ENUM_TYPE2_BAR = 2;
+}
+
+// test case: enum type with number at end of word
+enum TestEnum3Type {
+  TEST_ENUM3_TYPE_UNSPECIFIED = 0;
+  TEST_ENUM3_TYPE_FOO = 1;
+  TEST_ENUM3_TYPE_BAR = 2;
+}
+
+// test case: enum type with number at middle of word
+enum TestEnum4thType {
+  TEST_ENUM4TH_TYPE_UNSPECIFIED = 0;
+  TEST_ENUM4TH_TYPE_FOO = 1;
+  TEST_ENUM4TH_TYPE_BAR = 2;
 }

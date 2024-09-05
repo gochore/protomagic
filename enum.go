@@ -3,7 +3,6 @@ package protomagic
 import (
 	"strings"
 
-	"github.com/iancoleman/strcase"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/runtime/protoimpl"
 )
@@ -39,7 +38,7 @@ func (e *Enum[T]) Unwrap() T {
 // For example, "TEST_ENUM_TYPE_FOO" -> "foo".
 func (e *Enum[T]) ShortName() string {
 	prefix := string(e.inner.Type().Descriptor().Name()) // like "TestEnumType"
-	prefix = strcase.ToScreamingSnake(prefix) + "_"      // like "TEST_ENUM_TYPE_"
+	prefix = toSnake(prefix) + "_"                       // like "TEST_ENUM_TYPE_"
 
 	ret := protoimpl.X.EnumStringOf(e.inner.Descriptor(), e.inner.Number()) // like "TEST_ENUM_TYPE_FOO", follow the implementation of String() method
 	ret = strings.TrimPrefix(ret, prefix)                                   // like "FOO"
@@ -71,4 +70,29 @@ func (e *Enum[T]) SpecifiedValues() []T {
 		}
 	}
 	return ret
+}
+
+// toSnake converts a string to SNACK_CASE.
+// It assumes the input string is in CamelCase and contains only A-Z, a-z and 0-9.
+// It treats numbers as lower case letters.
+func toSnake(s string) string {
+	ret := &strings.Builder{}
+	toUpper := func(r rune) rune {
+		if r >= 'a' && r <= 'z' {
+			return r - 'a' + 'A'
+		}
+		return r
+	}
+	for i, v := range s {
+		isCap := v >= 'A' && v <= 'Z'
+		if !isCap {
+			ret.WriteRune(toUpper(v))
+			continue
+		}
+		if i > 0 {
+			ret.WriteRune('_')
+		}
+		ret.WriteRune(v)
+	}
+	return ret.String()
 }
