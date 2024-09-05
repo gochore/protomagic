@@ -13,6 +13,10 @@ func TestEnum_Wrap(t *testing.T) {
 	assert.Equal(t, v, WrapEnum(v).Unwrap())
 }
 
+func TestNewEnum(t *testing.T) {
+	assert.Equal(t, dummyv1.TestEnumType_TEST_ENUM_TYPE_UNSPECIFIED, NewEnum[dummyv1.TestEnumType]().Unwrap())
+}
+
 func TestEnum_ShortName(t *testing.T) {
 	t.Run("TestEnumType", func(t *testing.T) {
 		cases := []struct {
@@ -82,7 +86,7 @@ func TestEnum_ShortName(t *testing.T) {
 
 func TestEnum_AllValues(t *testing.T) {
 	t.Run("TestEnumType", func(t *testing.T) {
-		values := WrapEnum(dummyv1.TestEnumType_TEST_ENUM_TYPE_UNSPECIFIED).AllValues()
+		values := NewEnum[dummyv1.TestEnumType]().AllValues()
 		assert.Equal(t, []dummyv1.TestEnumType{
 			dummyv1.TestEnumType_TEST_ENUM_TYPE_UNSPECIFIED,
 			dummyv1.TestEnumType_TEST_ENUM_TYPE_FOO,
@@ -94,7 +98,7 @@ func TestEnum_AllValues(t *testing.T) {
 		}, values)
 	})
 	t.Run("TestEnum2Type", func(t *testing.T) {
-		values := WrapEnum(dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_UNSPECIFIED).AllValues()
+		values := NewEnum[dummyv1.TestEnum2Type]().AllValues()
 		assert.Equal(t, []dummyv1.TestEnum2Type{
 			dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_UNSPECIFIED,
 			dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_FOO,

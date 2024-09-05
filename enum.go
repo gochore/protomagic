@@ -8,16 +8,29 @@ import (
 	"google.golang.org/protobuf/runtime/protoimpl"
 )
 
+// Enum is a wrapper around an enum value.
+// It provides some useful methods to work with enums.
+// There are two ways to create an Enum[T]:
+//  1. WrapEnum[T](T) wraps an existing enum value.
+//  2. NewEnum[T]() creates a new Enum[T] with the zero value of T.
 type Enum[T protoreflect.Enum] struct {
 	inner T
 }
 
+// WrapEnum wraps an enum value with Enum[T].
 func WrapEnum[T protoreflect.Enum](inner T) *Enum[T] {
 	return &Enum[T]{
 		inner: inner,
 	}
 }
 
+// NewEnum creates a new Enum[T] with the zero value of T.
+func NewEnum[T protoreflect.Enum]() *Enum[T] {
+	var zero T
+	return WrapEnum[T](zero)
+}
+
+// Unwrap returns the inner enum value.
 func (e *Enum[T]) Unwrap() T {
 	return e.inner
 }
