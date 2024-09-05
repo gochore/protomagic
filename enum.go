@@ -16,7 +16,7 @@ func WrapEnum[T protoreflect.Enum](inner T) *Enum[T] {
 	return &Enum[T]{inner: inner}
 }
 
-func (e *Enum[T]) Wrap() T {
+func (e *Enum[T]) Unwrap() T {
 	return e.inner
 }
 

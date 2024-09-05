@@ -8,6 +8,11 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestEnum_Wrap(t *testing.T) {
+	v := dummyv1.TestEnumType_TEST_ENUM_TYPE_FOO
+	assert.Equal(t, v, WrapEnum(v).Unwrap())
+}
+
 func TestEnum_ShortName(t *testing.T) {
 	t.Run("TestEnumType", func(t *testing.T) {
 		cases := []struct {
