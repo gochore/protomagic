@@ -13,7 +13,9 @@ type Enum[T protoreflect.Enum] struct {
 }
 
 func WrapEnum[T protoreflect.Enum](inner T) *Enum[T] {
-	return &Enum[T]{inner: inner}
+	return &Enum[T]{
+		inner: inner,
+	}
 }
 
 func (e *Enum[T]) Unwrap() T {
@@ -29,5 +31,16 @@ func (e *Enum[T]) ShortName() string {
 	ret := protoimpl.X.EnumStringOf(e.inner.Descriptor(), e.inner.Number()) // like "TEST_ENUM_TYPE_FOO", follow the implementation of String() method
 	ret = strings.TrimPrefix(ret, prefix)                                   // like "FOO"
 	ret = strings.ToLower(ret)                                              // like "foo"
+	return ret
+}
+
+// AllValues returns all declared values of the enum type.
+func (e *Enum[T]) AllValues() []T {
+	typ := e.inner.Type()
+	values := typ.Descriptor().Values()
+	ret := make([]T, 0, values.Len())
+	for i := range values.Len() {
+		ret = append(ret, typ.New(values.Get(i).Number()).(T))
+	}
 	return ret
 }
