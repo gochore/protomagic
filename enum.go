@@ -20,6 +20,8 @@ func (e *Enum[T]) Wrap() T {
 	return e.inner
 }
 
+// ShortName returns the short name in the lower case of the enum value.
+// For example, "TEST_ENUM_TYPE_FOO" -> "foo".
 func (e *Enum[T]) ShortName() string {
 	prefix := string(e.inner.Type().Descriptor().Name()) // like "TestEnumType"
 	prefix = strcase.ToScreamingSnake(prefix) + "_"      // like "TEST_ENUM_TYPE_"
