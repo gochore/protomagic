@@ -1,0 +1,5 @@
+module github.com/gochore/protomagic/testdata
+
+go 1.23
+
+require google.golang.org/protobuf v1.34.2

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package dummy.v1;
+
+enum TestEnumType {
+  TEST_ENUM_TYPE_UNSPECIFIED = 0;
+  TEST_ENUM_TYPE_FOO = 1;
+  TEST_ENUM_TYPE_BAR = 2;
+  TEST_ENUM_TYPE_HELLO_WORLD = 3; // test case: two words
+  TEST_ENUM_TYPE_FOO2 = 4; // test case: enum value with number
+  TEST_ENUM_TYPE_FOO_3 = 5; // test case: enum value with underscore number
+
+  TEST_ENUM_TYPE_HELLO = 100; // test case: non-sequential enum value
+}
+
+// test case: enum type with number
+enum TestEnum2Type {
+  TEST_ENUM2_TYPE_UNSPECIFIED = 0;
+  TEST_ENUM2_TYPE_FOO = 1;
+  TEST_ENUM2_TYPE_BAR = 2;
+}
