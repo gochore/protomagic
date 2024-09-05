@@ -72,6 +72,16 @@ func (e *Enum[T]) SpecifiedValues() []T {
 	return ret
 }
 
+// IsDefined returns true if the enum value is defined in the enum type.
+func (e *Enum[T]) IsDefined() bool {
+	return e.inner.Descriptor().Values().ByNumber(e.inner.Number()) != nil
+}
+
+// IsSpecified returns true if the enum value is defined and not the zero value.
+func (e *Enum[T]) IsSpecified() bool {
+	return e.IsDefined() && e.inner.Number() != 0
+}
+
 // toSnake converts a string to SNACK_CASE.
 // It assumes the input string is in CamelCase and contains only A-Z, a-z and 0-9.
 // It treats numbers as lower case letters.

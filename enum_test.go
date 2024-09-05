@@ -139,3 +139,15 @@ func TestEnum_SpecifiedValues(t *testing.T) {
 		}, values)
 	})
 }
+
+func TestEnum_IsDefined(t *testing.T) {
+	assert.True(t, WrapEnum(dummyv1.TestEnumType_TEST_ENUM_TYPE_FOO).IsDefined())
+	assert.True(t, WrapEnum(dummyv1.TestEnumType_TEST_ENUM_TYPE_UNSPECIFIED).IsDefined())
+	assert.False(t, WrapEnum(dummyv1.TestEnumType(1000)).IsDefined())
+}
+
+func TestEnum_IsSpecified(t *testing.T) {
+	assert.True(t, WrapEnum(dummyv1.TestEnumType_TEST_ENUM_TYPE_FOO).IsSpecified())
+	assert.False(t, WrapEnum(dummyv1.TestEnumType_TEST_ENUM_TYPE_UNSPECIFIED).IsSpecified())
+	assert.False(t, WrapEnum(dummyv1.TestEnumType(1000)).IsSpecified())
+}
