@@ -17,6 +17,10 @@ jobs:
         uses: bufbuild/buf-action@v1
         with:
           setup_only: true
+      - name: Format
+        run: |
+          cd testdata
+          buf format --diff --exit-code
       - name: Lint
         run: |
           cd testdata
