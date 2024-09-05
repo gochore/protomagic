@@ -64,15 +64,15 @@ func TestEnum_ShortName(t *testing.T) {
 			want string
 		}{
 			{
-				enum: dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_UNSPECIFIED,
+				enum: dummyv1.TestEnum2Type_TEST_ENUM2_TYPE_UNSPECIFIED,
 				want: "unspecified",
 			},
 			{
-				enum: dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_FOO,
+				enum: dummyv1.TestEnum2Type_TEST_ENUM2_TYPE_FOO,
 				want: "foo",
 			},
 			{
-				enum: dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_BAR,
+				enum: dummyv1.TestEnum2Type_TEST_ENUM2_TYPE_BAR,
 				want: "bar",
 			},
 		}
@@ -100,9 +100,9 @@ func TestEnum_AllValues(t *testing.T) {
 	t.Run("TestEnum2Type", func(t *testing.T) {
 		values := NewEnum[dummyv1.TestEnum2Type]().AllValues()
 		assert.Equal(t, []dummyv1.TestEnum2Type{
-			dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_UNSPECIFIED,
-			dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_FOO,
-			dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_BAR,
+			dummyv1.TestEnum2Type_TEST_ENUM2_TYPE_UNSPECIFIED,
+			dummyv1.TestEnum2Type_TEST_ENUM2_TYPE_FOO,
+			dummyv1.TestEnum2Type_TEST_ENUM2_TYPE_BAR,
 		}, values)
 	})
 }
@@ -122,8 +122,8 @@ func TestEnum_SpecifiedValues(t *testing.T) {
 	t.Run("TestEnum2Type", func(t *testing.T) {
 		values := NewEnum[dummyv1.TestEnum2Type]().SpecifiedValues()
 		assert.Equal(t, []dummyv1.TestEnum2Type{
-			dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_FOO,
-			dummyv1.TestEnum2Type_TEST_ENUM_2_TYPE_BAR,
+			dummyv1.TestEnum2Type_TEST_ENUM2_TYPE_FOO,
+			dummyv1.TestEnum2Type_TEST_ENUM2_TYPE_BAR,
 		}, values)
 	})
 }
