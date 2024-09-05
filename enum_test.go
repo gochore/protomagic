@@ -112,6 +112,14 @@ func TestEnum_AllValues(t *testing.T) {
 		values := NewEnum[dummyv1.TestEnumType2]().AllValues()
 		assert.Len(t, values, 3)
 	})
+	t.Run("TestUnorderedEnumType", func(t *testing.T) {
+		values := NewEnum[dummyv1.TestUnorderedEnumType]().AllValues()
+		assert.Equal(t, []dummyv1.TestUnorderedEnumType{
+			dummyv1.TestUnorderedEnumType_TEST_UNORDERED_ENUM_TYPE_UNSPECIFIED,
+			dummyv1.TestUnorderedEnumType_TEST_UNORDERED_ENUM_TYPE_BAR,
+			dummyv1.TestUnorderedEnumType_TEST_UNORDERED_ENUM_TYPE_FOO,
+		}, values)
+	})
 }
 
 func TestEnum_SpecifiedValues(t *testing.T) {
@@ -122,5 +130,12 @@ func TestEnum_SpecifiedValues(t *testing.T) {
 	t.Run("TestEnum2Type", func(t *testing.T) {
 		values := NewEnum[dummyv1.TestEnumType2]().SpecifiedValues()
 		assert.Len(t, values, 2)
+	})
+	t.Run("TestUnorderedEnumType", func(t *testing.T) {
+		values := NewEnum[dummyv1.TestUnorderedEnumType]().SpecifiedValues()
+		assert.Equal(t, []dummyv1.TestUnorderedEnumType{
+			dummyv1.TestUnorderedEnumType_TEST_UNORDERED_ENUM_TYPE_BAR,
+			dummyv1.TestUnorderedEnumType_TEST_UNORDERED_ENUM_TYPE_FOO,
+		}, values)
 	})
 }
