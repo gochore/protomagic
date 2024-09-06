@@ -46,9 +46,9 @@ func (e *Enum[T]) ShortName() string {
 	return ret
 }
 
-// AllValues returns all declared values of the enum type.
+// AllDefined returns all defined values of the enum type.
 // It includes the zero (_UNSPECIFIED) value.
-func (e *Enum[T]) AllValues() []T {
+func (e *Enum[T]) AllDefined() []T {
 	typ := e.inner.Type()
 	values := typ.Descriptor().Values()
 	ret := make([]T, 0, values.Len())
@@ -58,9 +58,9 @@ func (e *Enum[T]) AllValues() []T {
 	return ret
 }
 
-// SpecifiedValues returns all specified values of the enum type.
+// AllSpecified returns all specified values of the enum type.
 // It excludes the zero (_UNSPECIFIED) value.
-func (e *Enum[T]) SpecifiedValues() []T {
+func (e *Enum[T]) AllSpecified() []T {
 	typ := e.inner.Type()
 	values := typ.Descriptor().Values()
 	ret := make([]T, 0, values.Len()-1)
