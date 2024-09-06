@@ -12,6 +12,7 @@ message Dummy {
 
   DummyConfigA config_a = 11;
   DummyConfigB config_b = 12;
+  DummyConfigB config_b2 = 13;
 }
 
 message DummyConfigA {
