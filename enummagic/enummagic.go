@@ -1,4 +1,4 @@
-package protomagic
+package enummagic
 
 import (
 	"strings"
@@ -7,49 +7,23 @@ import (
 	"google.golang.org/protobuf/runtime/protoimpl"
 )
 
-// Enum is a wrapper around an enum value.
-// It provides some useful methods to work with enums.
-// There are two ways to create an Enum[T]:
-//  1. WrapEnum[T](T) wraps an existing enum value.
-//  2. NewEnum[T]() creates a new Enum[T] with the zero value of T.
-type Enum[T protoreflect.Enum] struct {
-	inner T
-}
-
-// WrapEnum wraps an enum value with Enum[T].
-func WrapEnum[T protoreflect.Enum](inner T) *Enum[T] {
-	return &Enum[T]{
-		inner: inner,
-	}
-}
-
-// NewEnum creates a new Enum[T] with the zero value of T.
-func NewEnum[T protoreflect.Enum]() *Enum[T] {
-	var zero T
-	return WrapEnum[T](zero)
-}
-
-// Unwrap returns the inner enum value.
-func (e *Enum[T]) Unwrap() T {
-	return e.inner
-}
-
 // ShortName returns the short name in the lower case of the enum value.
 // For example, "TEST_ENUM_TYPE_FOO" -> "foo".
-func (e *Enum[T]) ShortName() string {
-	prefix := string(e.inner.Type().Descriptor().Name()) // like "TestEnumType"
-	prefix = toSnake(prefix) + "_"                       // like "TEST_ENUM_TYPE_"
+func ShortName[T protoreflect.Enum](enum T) string {
+	prefix := string(enum.Type().Descriptor().Name()) // like "TestEnumType"
+	prefix = toSnake(prefix) + "_"                    // like "TEST_ENUM_TYPE_"
 
-	ret := protoimpl.X.EnumStringOf(e.inner.Descriptor(), e.inner.Number()) // like "TEST_ENUM_TYPE_FOO", follow the implementation of String() method
-	ret = strings.TrimPrefix(ret, prefix)                                   // like "FOO"
-	ret = strings.ToLower(ret)                                              // like "foo"
+	ret := protoimpl.X.EnumStringOf(enum.Descriptor(), enum.Number()) // like "TEST_ENUM_TYPE_FOO", follow the implementation of String() method
+	ret = strings.TrimPrefix(ret, prefix)                             // like "FOO"
+	ret = strings.ToLower(ret)                                        // like "foo"
 	return ret
 }
 
 // AllDefined returns all defined values of the enum type.
 // It includes the zero (_UNSPECIFIED) value.
-func (e *Enum[T]) AllDefined() []T {
-	typ := e.inner.Type()
+func AllDefined[T protoreflect.Enum]() []T {
+	var enum T
+	typ := enum.Type()
 	values := typ.Descriptor().Values()
 	ret := make([]T, 0, values.Len())
 	for i := range values.Len() {
@@ -60,8 +34,9 @@ func (e *Enum[T]) AllDefined() []T {
 
 // AllSpecified returns all specified values of the enum type.
 // It excludes the zero (_UNSPECIFIED) value.
-func (e *Enum[T]) AllSpecified() []T {
-	typ := e.inner.Type()
+func AllSpecified[T protoreflect.Enum]() []T {
+	var enum T
+	typ := enum.Type()
 	values := typ.Descriptor().Values()
 	ret := make([]T, 0, values.Len()-1)
 	for i := range values.Len() {
@@ -73,13 +48,13 @@ func (e *Enum[T]) AllSpecified() []T {
 }
 
 // IsDefined returns true if the enum value is defined in the enum type.
-func (e *Enum[T]) IsDefined() bool {
-	return e.inner.Descriptor().Values().ByNumber(e.inner.Number()) != nil
+func IsDefined[T protoreflect.Enum](enum T) bool {
+	return enum.Descriptor().Values().ByNumber(enum.Number()) != nil
 }
 
 // IsSpecified returns true if the enum value is defined and not the zero value.
-func (e *Enum[T]) IsSpecified() bool {
-	return e.IsDefined() && e.inner.Number() != 0
+func IsSpecified[T protoreflect.Enum](enum T) bool {
+	return IsDefined(enum) && enum.Number() != 0
 }
 
 // toSnake converts a string to SNACK_CASE.
