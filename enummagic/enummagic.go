@@ -21,7 +21,7 @@ func ShortName[T protoreflect.Enum](enum T) string {
 
 // AllDefined returns all defined values of the enum type.
 // It includes the zero (_UNSPECIFIED) value.
-func AllDefined[T protoreflect.Enum]() []T {
+func AllDefined[T protoreflect.Enum](_ ...T) []T {
 	var enum T
 	typ := enum.Type()
 	values := typ.Descriptor().Values()
@@ -34,7 +34,7 @@ func AllDefined[T protoreflect.Enum]() []T {
 
 // AllSpecified returns all specified values of the enum type.
 // It excludes the zero (_UNSPECIFIED) value.
-func AllSpecified[T protoreflect.Enum]() []T {
+func AllSpecified[T protoreflect.Enum](_ ...T) []T {
 	var enum T
 	typ := enum.Type()
 	values := typ.Descriptor().Values()

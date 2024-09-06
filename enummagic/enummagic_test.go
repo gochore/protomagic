@@ -111,6 +111,10 @@ func TestAllDefined(t *testing.T) {
 			dummyv1.TestUnorderedEnumType_TEST_UNORDERED_ENUM_TYPE_FOO,
 		}, values)
 	})
+	t.Run("TestEnumType_TEST_ENUM_TYPE_FOO", func(t *testing.T) {
+		values := AllDefined(dummyv1.TestEnumType_TEST_ENUM_TYPE_FOO)
+		assert.Len(t, values, 7)
+	})
 }
 
 func TestAllSpecified(t *testing.T) {
@@ -128,6 +132,10 @@ func TestAllSpecified(t *testing.T) {
 			dummyv1.TestUnorderedEnumType_TEST_UNORDERED_ENUM_TYPE_BAR,
 			dummyv1.TestUnorderedEnumType_TEST_UNORDERED_ENUM_TYPE_FOO,
 		}, values)
+	})
+	t.Run("TestEnumType_TEST_ENUM_TYPE_FOO", func(t *testing.T) {
+		values := AllSpecified(dummyv1.TestEnumType_TEST_ENUM_TYPE_FOO)
+		assert.Len(t, values, 6)
 	})
 }
 
