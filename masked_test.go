@@ -28,10 +28,11 @@ func TestNewMasked(t *testing.T) {
 		assert.Error(t, err)
 		assert.Nil(t, m)
 	})
-	t.Run("invalid sub path", func(t *testing.T) {
+	t.Run("nested path", func(t *testing.T) {
 		m, err := NewMasked(&dummyv1.Dummy{}, "name", "value", "config_a.name")
-		assert.Error(t, err)
-		assert.Nil(t, m)
+		assert.NoError(t, err)
+		require.NotNil(t, m)
+		assertMessageEqual(t, &dummyv1.Dummy{}, m.msg)
 	})
 }
 
@@ -129,6 +130,32 @@ func TestMasked_Prune(t *testing.T) {
 		require.NoError(t, err)
 		require.NotNil(t, msg)
 		assertMessageEqual(t, dummy, msg)
+	})
+
+	t.Run("nested path", func(t *testing.T) {
+		dummy := &dummyv1.Dummy{
+			Name:     "name",
+			Value:    100,
+			Values:   []string{"a", "b", "c"},
+			TestType: dummyv1.TestEnumType_TEST_ENUM_TYPE_FOO,
+			ConfigA: &dummyv1.DummyConfigA{
+				Name: "config_a",
+			},
+			ConfigB: &dummyv1.DummyConfigB{
+				Name: "config_b",
+			},
+			ConfigB2: &dummyv1.DummyConfigB{
+				Name: "config_b2",
+			},
+		}
+
+		m, err := NewMasked(dummy, "name", "value", "config_a.name")
+		require.NoError(t, err)
+		require.NotNil(t, m)
+
+		msg, err := m.Prune()
+		assert.ErrorContains(t, err, `nested field "config_a.name" is not supported`)
+		assert.Nil(t, msg)
 	})
 }
 
@@ -306,5 +333,47 @@ func TestMasked_Patch(t *testing.T) {
 				Name: "config_b2",
 			},
 		}, msg)
+	})
+
+	t.Run("nested path", func(t *testing.T) {
+		dummy := &dummyv1.Dummy{
+			Name:     "name",
+			Value:    100,
+			Values:   []string{"a", "b", "c"},
+			TestType: dummyv1.TestEnumType_TEST_ENUM_TYPE_FOO,
+			ConfigA: &dummyv1.DummyConfigA{
+				Name: "config_a",
+			},
+			ConfigB: &dummyv1.DummyConfigB{
+				Name: "config_b",
+			},
+			ConfigB2: &dummyv1.DummyConfigB{
+				Name: "config_b2",
+			},
+		}
+
+		m, err := NewMasked(dummy, "name", "value", "config_a.name")
+		require.NoError(t, err)
+		require.NotNil(t, m)
+
+		patch := &dummyv1.Dummy{
+			Name:     "name name",
+			Value:    100_100,
+			Values:   []string{"a", "b", "c", "a", "b", "c"},
+			TestType: dummyv1.TestEnumType_TEST_ENUM_TYPE_BAR,
+			ConfigA: &dummyv1.DummyConfigA{
+				Name: "config_a config_a",
+			},
+			ConfigB: &dummyv1.DummyConfigB{
+				Name: "config_b config_b",
+			},
+			ConfigB2: &dummyv1.DummyConfigB{
+				Name: "config_b2 config_b2",
+			},
+		}
+
+		msg, err := m.Patch(patch)
+		assert.ErrorContains(t, err, `nested field "config_a.name" is not supported`)
+		assert.Nil(t, msg)
 	})
 }

@@ -2,6 +2,7 @@ package protomagic
 
 import (
 	"fmt"
+	"strings"
 
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
@@ -84,6 +85,14 @@ func (m *Masked[T]) Prune() (T, error) {
 		return ret.(T), nil
 	}
 
+	// FIXME: nested field is not supported
+	for _, p := range m.mask.GetPaths() {
+		if strings.Contains(p, ".") {
+			var nilT T
+			return nilT, fmt.Errorf("nested field %q is not supported", p)
+		}
+	}
+
 	refl := ret.ProtoReflect()
 
 	paths := map[string]struct{}{}
@@ -110,6 +119,14 @@ func (m *Masked[T]) Patch(patch T) (T, error) {
 
 	if len(m.mask.GetPaths()) == 0 {
 		return ret.(T), nil
+	}
+
+	// FIXME: nested field is not supported
+	for _, p := range m.mask.GetPaths() {
+		if strings.Contains(p, ".") {
+			var nilT T
+			return nilT, fmt.Errorf("nested field %q is not supported", p)
+		}
 	}
 
 	if !m.msg.ProtoReflect().IsValid() {
