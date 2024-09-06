@@ -3,7 +3,6 @@ package timestampmagic
 import (
 	"time"
 
-	"github.com/golang/protobuf/ptypes/timestamp"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -35,12 +34,12 @@ func IsZero(ts *timestamppb.Timestamp) bool {
 
 // IsZeroTime returns true if the time is zero.
 // Use IsZero instead if you don't have a specific reason.
-func IsZeroTime(ts *timestamp.Timestamp) bool {
+func IsZeroTime(ts *timestamppb.Timestamp) bool {
 	return ts.AsTime().IsZero()
 }
 
 // IsZeroTimestamp returns true if the timestamp is zero.
 // Use IsZero instead if you don't have a specific reason.
-func IsZeroTimestamp(ts *timestamp.Timestamp) bool {
+func IsZeroTimestamp(ts *timestamppb.Timestamp) bool {
 	return ts.GetSeconds() == 0 && ts.GetNanos() == 0
 }
