@@ -5,6 +5,7 @@ help:
 
 testdata:
 	cd testdata && \
+		rm -rf gen && \
 		buf format --write && \
 		buf lint && \
 		buf generate
