@@ -15,7 +15,6 @@ pull_request_rules:
     actions:
       queue:
         name: default
-        merge_method: squash
   - name: Handle merged
     conditions:
       - 'label=wait-merge'
@@ -27,6 +26,7 @@ pull_request_rules:
         remove: ["wait-merge"]
 queue_rules:
   - name: default
+    merge_method: squash
     merge_conditions:
       - check-success=testdata
       - check-success=build
