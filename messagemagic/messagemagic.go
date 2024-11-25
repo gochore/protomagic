@@ -8,7 +8,6 @@ import (
 // It copies all not optional fields from the patch to the message.
 // For optional fields, it copies the value only if the patch has the field.
 // Otherwise, it keeps the value in the message unchanged.
-
 func Patch[T proto.Message](msg, patch T) T {
 	dst := proto.Clone(msg).(T)
 
